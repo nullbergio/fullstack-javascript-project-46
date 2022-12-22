@@ -1,0 +1,16 @@
+name: Main
+on:
+  - push
+  - pull_request
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check-out repo
+        uses: actions/checkout@v2
+      - name: Run composer installer
+        run: make install
+      - name: Run phpcs linter
+        run: make lint
+      - name: Run phpunit tests
+        run: make test

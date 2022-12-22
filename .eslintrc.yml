@@ -1,13 +1,14 @@
 ---
 
-extends:
-  - 'airbnb-base'
-
 plugins:
   - 'jest'
 
 env:
   "jest/globals": true
+
+extends:
+  - 'airbnb-base'
+  - 'plugin:jest/recommended'
 
 parserOptions:
   ecmaVersion: latest
