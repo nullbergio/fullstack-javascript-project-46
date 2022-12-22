@@ -8,9 +8,9 @@ jobs:
     steps:
       - name: Check-out repo
         uses: actions/checkout@v2
-      - name: Run composer installer
+      - name: Run npm install
         run: make install
-      - name: Run phpcs linter
+      - name: Run eslint linter
         run: make lint
-      - name: Run phpunit tests
+      - name: Run jest tests
         run: make test
