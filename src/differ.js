@@ -5,6 +5,7 @@ import formatData from './formatter.js';
 const getDiff = (data1, data2) => {
   const uniqNodeNames = _.union(Object.keys(data1), Object.keys(data2)).sort();
 
+  // TODO: move to return
   const result = uniqNodeNames.map((nodeName) => {
     let node = {};
     if (!Object.hasOwn(data1, nodeName)) {

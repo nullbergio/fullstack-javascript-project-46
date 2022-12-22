@@ -3,6 +3,12 @@
 extends:
   - 'airbnb-base'
 
+plugins:
+  - 'jest'
+
+env:
+  "jest/globals": true
+
 parserOptions:
   ecmaVersion: latest
 
@@ -12,4 +18,3 @@ rules:
     - error
     - ignorePackages
     - js: always
-

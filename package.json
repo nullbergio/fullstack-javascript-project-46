@@ -8,7 +8,7 @@
     "gendiff": "bin/gendiff.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --colors --runInBand --bail"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,12 @@
   "homepage": "https://github.com/nullbergio/fullstack-javascript-project-46#readme",
   "dependencies": {
     "commander": "^9.4.1",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
     "eslint": "^8.30.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "lodash": "^4.17.21"
+    "eslint-plugin-jest": "^27.1.7",
+    "jest": "^29.3.1"
   }
 }
