@@ -1,6 +1,6 @@
-import formatStylish from "./stylish.js";
-import formatPlain from "./plain.js";
-import formatJson from "./json.js";
+import formatStylish from './stylish.js';
+import formatPlain from './plain.js';
+import formatJson from './json.js';
 
 const formatData = (data, format) => {
   switch (format) {
@@ -14,6 +14,6 @@ const formatData = (data, format) => {
       console.error('Unknown data format:', format);
       return null;
   }
-}
+};
 
 export default formatData;
