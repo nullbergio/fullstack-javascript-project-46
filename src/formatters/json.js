@@ -1,5 +1,3 @@
-const formatJson = (data) => {
-  console.log(data);
-};
+const formatJson = (data) => (JSON.stringify(data));
 
 export default formatJson;

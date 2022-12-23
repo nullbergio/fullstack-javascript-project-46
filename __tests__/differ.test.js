@@ -51,3 +51,19 @@ test('complex test genDiff (yaml && plain)', () => {
   const receivedResult = genDiff(filePath1, filePath2, 'plain');
   expect(receivedResult).toMatch(expectedResult);
 });
+
+test('complex test genDiff (json && json)', () => {
+  const filePath1 = getFixturePath('complex-file1.json');
+  const filePath2 = getFixturePath('complex-file2.json');
+  const expectedResult = fs.readFileSync(getFixturePath('complex-json-result.txt'), 'utf8');
+  const receivedResult = genDiff(filePath1, filePath2, 'json');
+  expect(receivedResult).toMatch(expectedResult);
+});
+
+test('complex test genDiff (yaml && json)', () => {
+  const filePath1 = getFixturePath('complex-file1.yml');
+  const filePath2 = getFixturePath('complex-file2.yml');
+  const expectedResult = fs.readFileSync(getFixturePath('complex-json-result.txt'), 'utf8');
+  const receivedResult = genDiff(filePath1, filePath2, 'json');
+  expect(receivedResult).toMatch(expectedResult);
+});
