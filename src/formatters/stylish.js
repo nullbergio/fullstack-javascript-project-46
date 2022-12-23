@@ -18,35 +18,33 @@ const stringify = (value, depth = 1) => {
 
 const formatStylish = (data, depth = 1) => {
   const result = data.map((node) => {
-    let [line, linePrefix, oldLinePrefix, oldLine, newLinePrefix, newline] = '';
-
     switch (node.status) {
-      case 'nested':
-        linePrefix = getIndent(depth);
-        line = `${linePrefix}${node.name}: ${formatStylish(node.children, depth + 1)}`;
-        break;
-      case 'added':
-        linePrefix = getIndent(depth, '+');
-        line = `${linePrefix}${node.name}: ${stringify(node.value, depth)}`;
-        break;
-      case 'deleted':
-        linePrefix = getIndent(depth, '-');
-        line = `${linePrefix}${node.name}: ${stringify(node.value, depth)}`;
-        break;
-      case 'unchanged':
-        linePrefix = getIndent(depth);
-        line = `${linePrefix}${node.name}: ${stringify(node.value, depth)}`;
-        break;
-      case 'changed':
-        oldLinePrefix = getIndent(depth, '-');
-        oldLine = `${oldLinePrefix}${node.name}: ${stringify(node.oldValue, depth)}`;
-        newLinePrefix = getIndent(depth, '+');
-        newline = `${newLinePrefix}${node.name}: ${stringify(node.newValue, depth)}`;
-        line = `${oldLine}\n${newline}`;
-        break;
+      case 'nested': {
+        const lineNestedPrefix = getIndent(depth);
+        return `${lineNestedPrefix}${node.name}: ${formatStylish(node.children, depth + 1)}`;
+      }
+      case 'added': {
+        const lineAddedPrefix = getIndent(depth, '+');
+        return `${lineAddedPrefix}${node.name}: ${stringify(node.value, depth)}`;
+      }
+      case 'deleted': {
+        const lineDeletedPrefix = getIndent(depth, '-');
+        return `${lineDeletedPrefix}${node.name}: ${stringify(node.value, depth)}`;
+      }
+      case 'unchanged': {
+        const lineUnchangedPrefix = getIndent(depth);
+        return `${lineUnchangedPrefix}${node.name}: ${stringify(node.value, depth)}`;
+      }
+      case 'changed': {
+        const oldChangedLinePrefix = getIndent(depth, '-');
+        const oldLine = `${oldChangedLinePrefix}${node.name}: ${stringify(node.oldValue, depth)}`;
+        const newChangedLinePrefix = getIndent(depth, '+');
+        const newline = `${newChangedLinePrefix}${node.name}: ${stringify(node.newValue, depth)}`;
+        return `${oldLine}\n${newline}`;
+      }
       default:
+        return null;
     }
-    return line;
   });
 
   const resultPrefix = '{\n';

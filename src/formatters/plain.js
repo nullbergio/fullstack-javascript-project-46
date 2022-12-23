@@ -10,25 +10,21 @@ const stringify = (value) => {
 const formatPlain = (data, path = '') => {
   const result = data.map((node) => {
     const property = path + node.name;
-    let [line, nestedPath] = '';
 
     switch (node.status) {
-      case 'nested':
-        nestedPath = `${path}${node.name}.`;
-        line = formatPlain(node.children, nestedPath);
-        break;
+      case 'nested': {
+        const nestedPath = `${path}${node.name}.`;
+        return formatPlain(node.children, nestedPath);
+      }
       case 'added':
-        line = `Property '${property}' was added with value: ${stringify(node.value)}`;
-        break;
+        return `Property '${property}' was added with value: ${stringify(node.value)}`;
       case 'deleted':
-        line = `Property '${property}' was removed`;
-        break;
+        return `Property '${property}' was removed`;
       case 'changed':
-        line = `Property '${property}' was updated. From ${stringify(node.oldValue)} to ${stringify(node.newValue)}`;
-        break;
+        return `Property '${property}' was updated. From ${stringify(node.oldValue)} to ${stringify(node.newValue)}`;
       default:
+        return null;
     }
-    return line;
   });
   return result.filter((v) => (v)).join('\n');
 };

@@ -3,44 +3,48 @@ import parseFile from './parser.js';
 import formatData from './formatters/index.js';
 
 const getDiff = (data1, data2) => {
-  const uniqNodeNames = _.union(Object.keys(data1), Object.keys(data2)).sort();
+  const uniqNodeNames = [..._.union(Object.keys(data1), Object.keys(data2))].sort();
 
   return uniqNodeNames.map((nodeName) => {
-    let node = {};
     if (!Object.hasOwn(data1, nodeName)) {
-      node = {
+      return {
         name: nodeName,
         value: data2[nodeName],
         status: 'added',
       };
-    } else if (!Object.hasOwn(data2, nodeName)) {
-      node = {
+    }
+
+    if (!Object.hasOwn(data2, nodeName)) {
+      return {
         name: nodeName,
         value: data1[nodeName],
         status: 'deleted',
       };
-    } else if (data1[nodeName] === data2[nodeName]) {
-      node = {
+    }
+
+    if (data1[nodeName] === data2[nodeName]) {
+      return {
         name: nodeName,
         value: data2[nodeName],
         status: 'unchanged',
       };
-    } else if (_.isObject(data1[nodeName]) && _.isObject(data2[nodeName])) {
+    }
+
+    if (_.isObject(data1[nodeName]) && _.isObject(data2[nodeName])) {
       const nodeChildren = getDiff(data1[nodeName], data2[nodeName]);
-      node = {
+      return {
         name: nodeName,
         children: nodeChildren,
         status: 'nested',
       };
-    } else {
-      node = {
-        name: nodeName,
-        oldValue: data1[nodeName],
-        newValue: data2[nodeName],
-        status: 'changed',
-      };
     }
-    return node;
+
+    return {
+      name: nodeName,
+      oldValue: data1[nodeName],
+      newValue: data2[nodeName],
+      status: 'changed',
+    };
   });
 };
 
