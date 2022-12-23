@@ -5,8 +5,7 @@ import formatData from './formatters/index.js';
 const getDiff = (data1, data2) => {
   const uniqNodeNames = _.union(Object.keys(data1), Object.keys(data2)).sort();
 
-  // TODO: move to return
-  const result = uniqNodeNames.map((nodeName) => {
+  return uniqNodeNames.map((nodeName) => {
     let node = {};
     if (!Object.hasOwn(data1, nodeName)) {
       node = {
@@ -43,8 +42,6 @@ const getDiff = (data1, data2) => {
     }
     return node;
   });
-
-  return result;
 };
 
 const genDiff = (filepath1, filepath2, format) => {
