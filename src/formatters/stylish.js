@@ -14,7 +14,6 @@ const stringify = (value, depth = 1) => {
     return resultPrefix + arrayValue.join('\n') + resultPostfix;
   }
   return value;
-  // TODO: Check is_string and use json encode. Not sure.
 };
 
 const formatStylish = (data, depth = 1) => {
