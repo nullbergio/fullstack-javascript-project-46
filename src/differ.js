@@ -3,7 +3,7 @@ import parseFile from './parser.js';
 import formatData from './formatters/index.js';
 
 const getDiff = (data1, data2) => {
-  const uniqNodeNames = [..._.union(Object.keys(data1), Object.keys(data2))].sort();
+  const uniqNodeNames = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
 
   return uniqNodeNames.map((nodeName) => {
     if (!Object.hasOwn(data1, nodeName)) {
