@@ -44,7 +44,7 @@ const getDiff = (data1, data2) => {
   });
 };
 
-const genDiff = (filepath1, filepath2, format) => {
+const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const data = getDiff(parseFile(filepath1), parseFile(filepath2));
   return formatData(data, format);
 };
