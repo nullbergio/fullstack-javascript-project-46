@@ -3,67 +3,43 @@ import fs from 'node:fs';
 import genDiff from '../src/differ.js';
 
 const getFixturePath = (fileName) => path.join(process.cwd(), '__fixtures__', fileName);
-
-test('simple test genDiff (json && stylish)', () => {
-  const filePath1 = getFixturePath('simple-file1.json');
-  const filePath2 = getFixturePath('simple-file2.json');
-  const expectedResult = fs.readFileSync(getFixturePath('simple-stylish-result.txt'), 'utf8');
-  const receivedResult = genDiff(filePath1, filePath2, 'stylish');
-  expect(receivedResult).toMatch(expectedResult);
-});
-
-test('simple test genDiff (yaml && stylish)', () => {
-  const filePath1 = getFixturePath('simple-file1.yml');
-  const filePath2 = getFixturePath('simple-file2.yml');
-  const expectedResult = fs.readFileSync(getFixturePath('simple-stylish-result.txt'), 'utf8');
-  const receivedResult = genDiff(filePath1, filePath2, 'stylish');
-  expect(receivedResult).toMatch(expectedResult);
-});
+const fileComplexJson1 = getFixturePath('complex-file1.json');
+const fileComplexJson2 = getFixturePath('complex-file2.json');
+const fileComplexYml1 = getFixturePath('complex-file1.yml');
+const fileComplexYml2 = getFixturePath('complex-file2.yml');
 
 test('complex test genDiff (json && stylish)', () => {
-  const filePath1 = getFixturePath('complex-file1.json');
-  const filePath2 = getFixturePath('complex-file2.json');
   const expectedResult = fs.readFileSync(getFixturePath('complex-stylish-result.txt'), 'utf8');
-  const receivedResult = genDiff(filePath1, filePath2, 'stylish');
+  const receivedResult = genDiff(fileComplexJson1, fileComplexJson2, 'stylish');
   expect(receivedResult).toMatch(expectedResult);
 });
 
 test('complex test genDiff (yaml && stylish)', () => {
-  const filePath1 = getFixturePath('complex-file1.yml');
-  const filePath2 = getFixturePath('complex-file2.yml');
   const expectedResult = fs.readFileSync(getFixturePath('complex-stylish-result.txt'), 'utf8');
-  const receivedResult = genDiff(filePath1, filePath2, 'stylish');
+  const receivedResult = genDiff(fileComplexYml1, fileComplexYml2, 'stylish');
   expect(receivedResult).toMatch(expectedResult);
 });
 
 test('complex test genDiff (json && plain)', () => {
-  const filePath1 = getFixturePath('complex-file1.json');
-  const filePath2 = getFixturePath('complex-file2.json');
   const expectedResult = fs.readFileSync(getFixturePath('complex-plain-result.txt'), 'utf8');
-  const receivedResult = genDiff(filePath1, filePath2, 'plain');
+  const receivedResult = genDiff(fileComplexJson1, fileComplexJson2, 'plain');
   expect(receivedResult).toMatch(expectedResult);
 });
 
 test('complex test genDiff (yaml && plain)', () => {
-  const filePath1 = getFixturePath('complex-file1.yml');
-  const filePath2 = getFixturePath('complex-file2.yml');
   const expectedResult = fs.readFileSync(getFixturePath('complex-plain-result.txt'), 'utf8');
-  const receivedResult = genDiff(filePath1, filePath2, 'plain');
+  const receivedResult = genDiff(fileComplexYml1, fileComplexYml2, 'plain');
   expect(receivedResult).toMatch(expectedResult);
 });
 
 test('complex test genDiff (json && json)', () => {
-  const filePath1 = getFixturePath('complex-file1.json');
-  const filePath2 = getFixturePath('complex-file2.json');
   const expectedResult = fs.readFileSync(getFixturePath('complex-json-result.txt'), 'utf8');
-  const receivedResult = genDiff(filePath1, filePath2, 'json');
+  const receivedResult = genDiff(fileComplexJson1, fileComplexJson2, 'json');
   expect(receivedResult).toMatch(expectedResult);
 });
 
 test('complex test genDiff (yaml && json)', () => {
-  const filePath1 = getFixturePath('complex-file1.yml');
-  const filePath2 = getFixturePath('complex-file2.yml');
   const expectedResult = fs.readFileSync(getFixturePath('complex-json-result.txt'), 'utf8');
-  const receivedResult = genDiff(filePath1, filePath2, 'json');
+  const receivedResult = genDiff(fileComplexYml1, fileComplexYml2, 'json');
   expect(receivedResult).toMatch(expectedResult);
 });
