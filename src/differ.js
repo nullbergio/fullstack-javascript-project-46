@@ -26,7 +26,7 @@ const getDiff = (data1, data2) => {
         value: data2[nodeName],
         status: 'unchanged',
       };
-    } else if (Array.isArray(data1[nodeName]) && Array.isArray(data2[nodeName])) {
+    } else if (_.isObject(data1[nodeName]) && _.isObject(data2[nodeName])) {
       const nodeChildren = getDiff(data1[nodeName], data2[nodeName]);
       node = {
         name: nodeName,

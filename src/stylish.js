@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const getIndent = (depth, flag = null) => {
   const step = '    ';
   const indent = step.repeat(depth);
@@ -5,8 +7,11 @@ const getIndent = (depth, flag = null) => {
 };
 
 const stringify = (value, depth = 1) => {
-  if (Array.isArray(value)) {
-    console.log(depth); // FIXME: Fix after adding objects with nesting
+  if (_.isObject(value)) {
+    const arrayValue = Object.entries(value).map(([nodeName, nodeValue]) => (`${getIndent(depth + 1)}${nodeName}: ${stringify(nodeValue, depth + 1)}`));
+    const resultPrefix = '{\n';
+    const resultPostfix = `\n${getIndent(depth)}}`;
+    return resultPrefix + arrayValue.join('\n') + resultPostfix;
   }
   return value;
   // TODO: Check is_string and use json encode. Not sure.
