@@ -18,12 +18,7 @@ const stringify = (value, depth = 1) => {
 
 const formatStylish = (data, depth = 1) => {
   const result = data.map((node) => {
-    let line = '';
-    let linePrefix = '';
-    let oldLinePrefix = '';
-    let oldLine = '';
-    let newLinePrefix = '';
-    let newline = '';
+    let [line, linePrefix, oldLinePrefix, oldLine, newLinePrefix, newline] = '';
 
     switch (node.status) {
       case 'nested':

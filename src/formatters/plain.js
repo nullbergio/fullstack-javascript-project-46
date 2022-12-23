@@ -10,8 +10,7 @@ const stringify = (value) => {
 const formatPlain = (data, path = '') => {
   const result = data.map((node) => {
     const property = path + node.name;
-    let line = '';
-    let nestedPath;
+    let [line, nestedPath] = '';
 
     switch (node.status) {
       case 'nested':
