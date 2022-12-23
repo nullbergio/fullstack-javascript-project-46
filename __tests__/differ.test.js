@@ -7,39 +7,36 @@ const fileComplexJson1 = getFixturePath('complex-file1.json');
 const fileComplexJson2 = getFixturePath('complex-file2.json');
 const fileComplexYml1 = getFixturePath('complex-file1.yml');
 const fileComplexYml2 = getFixturePath('complex-file2.yml');
+const fileStylishResult = fs.readFileSync(getFixturePath('complex-stylish-result.txt'), 'utf8');
+const filePlainResult = fs.readFileSync(getFixturePath('complex-plain-result.txt'), 'utf8');
+const fileJsonResult = fs.readFileSync(getFixturePath('complex-json-result.txt'), 'utf8');
 
 test('complex test genDiff (json && stylish)', () => {
-  const expectedResult = fs.readFileSync(getFixturePath('complex-stylish-result.txt'), 'utf8');
   const receivedResult = genDiff(fileComplexJson1, fileComplexJson2, 'stylish');
-  expect(receivedResult).toMatch(expectedResult);
+  expect(receivedResult).toMatch(fileStylishResult);
 });
 
 test('complex test genDiff (yaml && stylish)', () => {
-  const expectedResult = fs.readFileSync(getFixturePath('complex-stylish-result.txt'), 'utf8');
   const receivedResult = genDiff(fileComplexYml1, fileComplexYml2, 'stylish');
-  expect(receivedResult).toMatch(expectedResult);
+  expect(receivedResult).toMatch(fileStylishResult);
 });
 
 test('complex test genDiff (json && plain)', () => {
-  const expectedResult = fs.readFileSync(getFixturePath('complex-plain-result.txt'), 'utf8');
   const receivedResult = genDiff(fileComplexJson1, fileComplexJson2, 'plain');
-  expect(receivedResult).toMatch(expectedResult);
+  expect(receivedResult).toMatch(filePlainResult);
 });
 
 test('complex test genDiff (yaml && plain)', () => {
-  const expectedResult = fs.readFileSync(getFixturePath('complex-plain-result.txt'), 'utf8');
   const receivedResult = genDiff(fileComplexYml1, fileComplexYml2, 'plain');
-  expect(receivedResult).toMatch(expectedResult);
+  expect(receivedResult).toMatch(filePlainResult);
 });
 
 test('complex test genDiff (json && json)', () => {
-  const expectedResult = fs.readFileSync(getFixturePath('complex-json-result.txt'), 'utf8');
   const receivedResult = genDiff(fileComplexJson1, fileComplexJson2, 'json');
-  expect(receivedResult).toMatch(expectedResult);
+  expect(receivedResult).toMatch(fileJsonResult);
 });
 
 test('complex test genDiff (yaml && json)', () => {
-  const expectedResult = fs.readFileSync(getFixturePath('complex-json-result.txt'), 'utf8');
   const receivedResult = genDiff(fileComplexYml1, fileComplexYml2, 'json');
-  expect(receivedResult).toMatch(expectedResult);
+  expect(receivedResult).toMatch(fileJsonResult);
 });
