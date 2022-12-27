@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'node:fs';
-import genDiff from '../src/differ.js';
+import genDiff from '../index.js';
 
 const getFixturePath = (fileName) => path.join(process.cwd(), '__fixtures__', fileName);
 const fileComplexJson1 = getFixturePath('complex-file1.json');

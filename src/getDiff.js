@@ -1,6 +1,4 @@
 import _ from 'lodash';
-import parseFile from './parser.js';
-import formatData from './formatters/index.js';
 
 const getDiff = (data1, data2) => {
   const uniqNodeNames = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
@@ -48,9 +46,4 @@ const getDiff = (data1, data2) => {
   });
 };
 
-const genDiff = (filepath1, filepath2, format = 'stylish') => {
-  const data = getDiff(parseFile(filepath1), parseFile(filepath2));
-  return formatData(data, format);
-};
-
-export default genDiff;
+export default getDiff;
