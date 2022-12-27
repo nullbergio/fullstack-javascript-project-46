@@ -11,32 +11,28 @@ const fileStylishResult = fs.readFileSync(getFixturePath('complex-stylish-result
 const filePlainResult = fs.readFileSync(getFixturePath('complex-plain-result.txt'), 'utf8');
 const fileJsonResult = fs.readFileSync(getFixturePath('complex-json-result.txt'), 'utf8');
 
-test('complex test genDiff (json && stylish)', () => {
-  const receivedResult = genDiff(fileComplexJson1, fileComplexJson2, 'stylish');
-  expect(receivedResult).toMatch(fileStylishResult);
-});
+const cases = [
+  ['json->json', undefined, fileComplexJson1, fileComplexJson2, fileStylishResult],
+  ['json->json', 'stylish', fileComplexJson1, fileComplexJson2, fileStylishResult],
+  ['yaml->yaml', 'stylish', fileComplexYml1, fileComplexYml2, fileStylishResult],
+  ['json->yaml', 'stylish', fileComplexJson1, fileComplexYml2, fileStylishResult],
+  ['yaml->json', 'stylish', fileComplexYml1, fileComplexJson2, fileStylishResult],
+  ['json->json', 'plain', fileComplexJson1, fileComplexJson2, filePlainResult],
+  ['yaml->yaml', 'plain', fileComplexYml1, fileComplexYml2, filePlainResult],
+  ['json->yaml', 'plain', fileComplexJson1, fileComplexYml2, filePlainResult],
+  ['yaml->json', 'plain', fileComplexYml1, fileComplexJson2, filePlainResult],
+  ['json->json', 'json', fileComplexJson1, fileComplexJson2, fileJsonResult],
+  ['yaml->yaml', 'json', fileComplexYml1, fileComplexYml2, fileJsonResult],
+  ['json->yaml', 'json', fileComplexJson1, fileComplexYml2, fileJsonResult],
+  ['yaml->json', 'json', fileComplexYml1, fileComplexJson2, fileJsonResult],
+];
 
-test('complex test genDiff (yaml && stylish)', () => {
-  const receivedResult = genDiff(fileComplexYml1, fileComplexYml2, 'stylish');
-  expect(receivedResult).toMatch(fileStylishResult);
-});
-
-test('complex test genDiff (json && plain)', () => {
-  const receivedResult = genDiff(fileComplexJson1, fileComplexJson2, 'plain');
-  expect(receivedResult).toMatch(filePlainResult);
-});
-
-test('complex test genDiff (yaml && plain)', () => {
-  const receivedResult = genDiff(fileComplexYml1, fileComplexYml2, 'plain');
-  expect(receivedResult).toMatch(filePlainResult);
-});
-
-test('complex test genDiff (json && json)', () => {
-  const receivedResult = genDiff(fileComplexJson1, fileComplexJson2, 'json');
-  expect(receivedResult).toMatch(fileJsonResult);
-});
-
-test('complex test genDiff (yaml && json)', () => {
-  const receivedResult = genDiff(fileComplexYml1, fileComplexYml2, 'json');
-  expect(receivedResult).toMatch(fileJsonResult);
+describe('test differ', () => {
+  test.each(cases)(
+    '%p comparison with %p formatting',
+    (desc, format, file1, file2, expected) => {
+      const received = genDiff(file1, file2, format);
+      expect(received).toEqual(expected);
+    },
+  );
 });
